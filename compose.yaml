@@ -54,9 +54,8 @@ services:
       - frontend_network
 
 networks:
-  mongodb_network:
-  backend_network:
-  frontend_network:
+  backend_network: {}
+  frontend_network: {}
 
 volumes:
-  mongo-data:
+  mongo-data: {}
