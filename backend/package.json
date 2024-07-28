@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for User Management Platform",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --openssl-legacy-provider app.js",
+    "dev": "nodemon --openssl-legacy-provider app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "author": "",
+  "license": "ISC"
+}

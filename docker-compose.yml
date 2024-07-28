@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - backend_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    container_name: backend
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/yourDatabase
+      - JWT_SECRET=your_jwt_secret_key
+      - PORT=4000
+    ports:
+      - "4000:4000"
+    volumes:
+    - type: bind
+      source: ./backend
+      target: /usr/src/app
+    depends_on:
+      - mongodb
+    networks:
+      - backend_network
+      - frontend_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    container_name: frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:4000/api
+    ports:
+      - "3000:3000"
+    volumes:
+    - type: bind
+      source: ./frontend/public
+      target: /usr/src/app/public
+    depends_on:
+      - backend
+    networks:
+      - frontend_network
+
+networks:
+  mongodb_network:
+  backend_network:
+  frontend_network:
+
+volumes:
+  mongo-data:
